@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oppo Claim + Referral</title>
+  <title>Oppo Claim + Referral Widget Demo</title>
 
   <!-- Jupiter Plugin -->
   <script src="https://plugin.jup.ag/plugin-v1.js"></script>
@@ -30,41 +30,80 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #89d5dc;
+      color: #0c0c0c;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #6bb1b8;
     }
   </style>
 </head>
 <body>
-  <h2>Oppo Claim + Referral Widget</h2>
+  <h2>Oppo Claim + Referral Widget Demo</h2>
 
-  <!-- Widget alanı -->
+  <!-- Widget container -->
   <div id="target-container"></div>
 
-  <script type="module">
-    // ==========================
-    // SDK import
-    // ==========================
-    import { addFeesToUltra } from "https://cdn.jsdelivr.net/npm/@jup-ag/ultra-api/dist/ultra-api.min.js";
+  <!-- Demo Claim Button -->
+  <button id="demoClaimBtn">Simulate Claim (Demo)</button>
 
-    // ==========================
-    // Referral / Fee Ayarları
-    // ==========================
+  <script>
+    // Referral fee ayarları
     const feeBps = 5; // 0.5% işlem ücreti
     const feeRecipient = "9EvV3V9cZ4KktQ4xCnu3ymA2a9qgaBR4HLFhFddZZXSn";
 
-    // ==========================
-    // Widget Init
-    // ==========================
-    window.Jupiter.init({
-      displayMode: "integrated",
-      integratedTargetId: "target-container",
-      formProps: {
-        initialInputMint: "So11111111111111111111111111111111111111112",
-        initialOutputMint: "HEadEtLjAFBGqAweLESUR2Qcjoc3U8ekQNvSUSH17gJz",
-      },
-      branding: {
-        logoUri: "https://photos.pinksale.finance/file/pinksale-logo-upload/1733923962272-6c08b5b4359a38ef4991bd3d69dc1c3d.png",
-        name: "Oppo",
-      },
-      feeBps: feeBps,
-      feeRecipient:
+    // Swap/claim tamamlandığında çağrılacak fonksiyon
+    async function handleReferralFee(transactionHash) {
+      try {
+        const { addFeesToUltra } = await import('https://cdn.jsdelivr.net/npm/@jup-ag/ultra-api/dist/ultra-api.min.js');
+        await addFeesToUltra({
+          transaction: transactionHash,
+          feeBps: feeBps,
+          feeRecipient: feeRecipient
+        });
+        console.log("Referral fee başarıyla eklendi!");
+        alert("Referral fee başarıyla eklendi! (Demo)");
+      } catch (err) {
+        console.error("Referral fee ekleme hatası:", err);
+        alert("Referral fee ekleme hatası! Check console.");
+      }
+    }
+
+    // Widget init
+    document.addEventListener("DOMContentLoaded", () => {
+      window.Jupiter.init({
+        displayMode: "integrated",
+        integratedTargetId: "target-container",
+        formProps: {
+          initialInputMint: "So11111111111111111111111111111111111111112",
+          initialOutputMint: "HEadEtLjAFBGqAweLESUR2Qcjoc3U8ekQNvSUSH17gJz",
+        },
+        branding: {
+          logoUri: "https://photos.pinksale.finance/file/pinksale-logo-upload/1733923962272-6c08b5b4359a38ef4991bd3d69dc1c3d.png",
+          name: "Oppo",
+        },
+        feeBps: feeBps,
+        feeRecipient: feeRecipient
+      });
+    });
+
+    // Demo Claim Button
+    document.getElementById("demoClaimBtn").addEventListener("click", () => {
+      // Demo için sahte transaction hash
+      const demoTxHash = "5KJfExampleTransactionHash123456";
+      handleReferralFee(demoTxHash);
+    });
+  </script>
+</body>
+</html>
