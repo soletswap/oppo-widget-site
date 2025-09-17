@@ -21,7 +21,8 @@ export async function getQuote(params: QuoteParams) {
   url.searchParams.set('inputMint', params.inputMint);
   url.searchParams.set('outputMint', params.outputMint);
   url.searchParams.set('amount', atomicAmount.toString());
-  if (params.slippageBps) url.searchParams.set('slippageBps', params.slippageBps.toString());
+  if (params.slippageBps)
+    url.searchParams.set('slippageBps', params.slippageBps.toString());
 
   const res = await fetch(url.toString());
   if (!res.ok) throw new Error(`Quote failed: ${res.status}`);
@@ -29,13 +30,13 @@ export async function getQuote(params: QuoteParams) {
 }
 
 interface SwapParams {
-  route: any;
+  route: unknown;
   userPublicKey: string;
 }
 
-export async function swap(params: SwapParams) {
+export async function swap(_params: SwapParams) {
   // Placeholder: Real swap requires building & signing transaction (using wallet adapter).
   // Here we just simulate.
-  await new Promise(r => setTimeout(r, 1200));
+  await new Promise((r) => setTimeout(r, 1200));
   return 'FAKE_TRANSACTION_SIGNATURE_PLACEHOLDER';
 }
