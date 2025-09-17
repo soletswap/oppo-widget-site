@@ -1,61 +1,162 @@
-# Oppo Widget Site
+# Oppo Widget – Jupiter Ultra Demo Scaffold
 
-Demo amaçlı hazırlanmış bir (React + Vite + TypeScript) arayüzü. Jupiter benzeri bir swap API entegrasyonu için temel widget bileşeni içerir.
+## Overview
 
-## Özellikler
+This is a demo scaffold for building Jupiter Ultra swap widgets with React, Vite, and TypeScript. The project provides a foundational structure for implementing decentralized exchange functionality on Solana, with placeholder components and utilities that can be incrementally enhanced toward production-ready swap features.
 
-- Desteklenen token listesini `src/constants/tokens.ts` üzerinden yönetme
-- Basit quote alma (placeholder endpoint)
-- Swap için örnek POST isteği (demo / placeholder)
-- Komponent: `JupiterWidget`
+The scaffold follows an incremental roadmap approach, allowing developers to progressively add real wallet integration, Jupiter Ultra routing, dynamic token metadata, and enhanced UX features while maintaining a clean, extensible codebase.
 
-## Kurulum
+## Tech Stack
 
+### Current Implementation
+- **React 18** - Modern React with hooks and functional components
+- **Vite** - Fast build tool and development server
+- **TypeScript** - Type-safe development with strict mode enabled
+- **ESLint** - Flat config setup for code quality and consistency
+- **Prettier** - Code formatting
+
+### Planned Integrations
+- **Solana Wallet Adapter** - Multi-wallet connection support
+- **Jupiter Ultra API** - Real swap routing and execution
+- **Dynamic Token Metadata** - Live token lists and accurate decimals
+- **Enhanced UX** - Loading states, error handling, and responsive design
+
+## Getting Started
+
+### Prerequisites
+- Node.js 18 or later
+- npm, yarn, or pnpm
+
+### Installation
 ```bash
-pnpm install   # veya npm install / yarn
-pnpm dev
+npm install
 ```
 
-Varsayılan olarak uygulama `http://localhost:5173` üzerinden çalışır.
-
-## Ortam Değişkenleri
-
-`VITE_JUPITER_BASE_URL` ayarlanarak varsayılan endpoint değiştirilebilir:
-
+### Development Server
 ```bash
-echo "VITE_JUPITER_BASE_URL=https://quote-api.jup.ag" > .env.local
+npm run dev
 ```
 
-## Dosya Yapısı (Önerilen)
+The application will be available at `http://localhost:5173`.
+
+### Build
+```bash
+npm run build
+```
+
+### Linting
+```bash
+npm run lint
+```
+
+### Formatting
+```bash
+npm run format
+```
+
+## Environment Variables
+
+The application supports the following environment variables. Copy `.env.example` to `.env.local` and customize as needed:
+
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `VITE_RPC_URL` | Solana RPC endpoint | `https://api.mainnet-beta.solana.com` | No |
+| `VITE_FEE_WALLET` | Wallet address for referral fees | None | No |
+| `VITE_JUPITER_API_BASE` | Jupiter API base URL | `https://quote-api.jup.ag/v6` | No |
+
+## Project Structure
 
 ```
 src/
-  App.tsx
-  main.tsx
-  components/
-    JupiterWidget.tsx
-  constants/
-    tokens.ts
-  utils/
-    jupiterUltraApi.ts
+├── App.tsx                    # Main application component
+├── main.tsx                   # Application entry point
+├── global.css                 # Global styles and design system
+├── components/
+│   └── JupiterWidget.tsx      # Main swap widget component
+├── constants/
+│   └── tokens.ts              # Supported token definitions
+├── utils/
+│   └── jupiterUltraApi.ts     # API integration helpers
+└── tests/                     # Test setup and utilities (planned)
+    └── setup/
+        └── testSetup.ts       # Vitest + RTL configuration (placeholder)
+
+# Configuration
+├── vite.config.ts             # Vite configuration
+├── tsconfig.json              # TypeScript configuration
+├── eslint.config.js           # ESLint flat config
+├── .env.example               # Environment variables template
+└── .gitignore                 # Git ignore patterns
 ```
 
-## Geliştirme Notları
+### Planned Additions
+```
+src/
+├── hooks/                     # Custom React hooks for wallet, quotes
+├── store/                     # State management (Zustand)
+├── types/                     # TypeScript type definitions
+└── utils/
+    ├── wallet.ts              # Wallet connection utilities
+    ├── tokens.ts              # Token metadata fetching
+    └── logger.ts              # Logging and metrics
+```
 
-- `fetchQuote` ve `fetchSwap` fonksiyonları gerçek Jupiter Ultra veya güncel API parametrelerine göre güncellenmeli.
-- Token mint adresleri şu an placeholder olanlar için doldurulmalı.
-- Cüzdan entegrasyonu (Phantom, Backpack vb.) eklenmesi gerekirse ayrı bir `wallet` store / hook yapısı kurulabilir.
+## Current Limitations
 
-## Yapılacaklar (Öneri)
+This is a demo scaffold with several intentional limitations that serve as integration points for production features:
 
-- [ ] Gerçek mint adreslerini ekle
-- [ ] Gerçek Jupiter endpoint & parametre senkronizasyonu
-- [ ] Cüzdan bağlantısı (solana wallet adapter)
-- [ ] Slippage ayarı UI
-- [ ] Route detay modalı
-- [ ] Hata ve loading durumlarını tasarımsal iyileştirme
-- [ ] Testler (Vitest + React Testing Library)
+- **No Real Swaps** - Swap function returns placeholder transaction signatures
+- **No Wallet Integration** - Hardcoded placeholder wallet addresses
+- **Static Token List** - Limited token selection with placeholder mint addresses
+- **Minimal UX** - Basic error states and loading indicators
+- **No Tests** - Test infrastructure planned but not implemented
+- **No Referral Logic** - Fee tracking and distribution not implemented
+- **Hardcoded Endpoints** - API endpoints are placeholders, not production Jupiter Ultra
 
-## Lisans
+## Roadmap
 
-İhtiyaca göre lisans ekleyin (MIT vb.).
+### Phase 1: Core Functionality
+- [ ] Integrate Solana Wallet Adapter for multi-wallet support
+- [ ] Implement real Jupiter Ultra quote fetching with live routes
+- [ ] Add dynamic token list with accurate mint addresses and decimals
+- [ ] Implement referral fee calculation and tracking
+
+### Phase 2: Enhanced UX
+- [ ] Add comprehensive loading states and error handling
+- [ ] Implement slippage tolerance settings
+- [ ] Add transaction confirmation and tracking
+- [ ] Responsive design improvements
+
+### Phase 3: Quality & Monitoring
+- [ ] Complete CI/CD pipeline with automated testing
+- [ ] Add unit and integration tests with Vitest + React Testing Library
+- [ ] Implement logging and metrics collection
+- [ ] Add performance monitoring and optimization
+
+### Phase 4: Advanced Features
+- [ ] Route optimization preferences
+- [ ] Transaction history and analytics
+- [ ] Multi-hop swap support
+- [ ] Advanced order types (limit orders, DCA)
+
+## Contributing
+
+### Development Workflow
+1. Create a feature branch from `main`
+2. Make your changes with descriptive commit messages
+3. Ensure all tests pass and linting is clean
+4. Submit a pull request with a clear description
+
+### Commit Convention
+We encourage semantic commit messages:
+- `feat:` - New features
+- `fix:` - Bug fixes
+- `docs:` - Documentation updates
+- `style:` - Code style changes
+- `refactor:` - Code refactoring
+- `test:` - Test additions or modifications
+- `chore:` - Build process or auxiliary tool changes
+
+## License
+
+MIT License - see LICENSE file for details
