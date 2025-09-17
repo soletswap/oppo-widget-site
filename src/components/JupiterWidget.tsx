@@ -6,7 +6,7 @@ interface Quote {
   inAmount: string;
   outAmount: string;
   priceImpactPct?: number;
-  route?: any;
+  route?: unknown;
   error?: string;
 }
 
@@ -31,8 +31,9 @@ export const JupiterWidget: React.FC = () => {
         slippageBps: 50
       });
       setQuote(q as Quote);
-    } catch (e:any) {
-      setError(e.message || 'Quote error');
+    } catch (e: unknown) {
+      const error = e as Error;
+      setError(error.message || 'Quote error');
     } finally {
       setLoading(false);
     }
@@ -46,8 +47,9 @@ export const JupiterWidget: React.FC = () => {
       // Placeholder: you would pass user wallet + route
       const sig = await swap({ route: quote.route, userPublicKey: '<WALLET_PUBKEY_PLACEHOLDER>' });
       setSwapTx(sig);
-    } catch (e:any) {
-      setError(e.message || 'Swap error');
+    } catch (e: unknown) {
+      const error = e as Error;
+      setError(error.message || 'Swap error');
     } finally {
       setLoading(false);
     }
