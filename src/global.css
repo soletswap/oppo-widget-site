@@ -3,7 +3,9 @@
   color-scheme: light dark;
 }
 
-body, html, #root {
+body,
+html,
+#root {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -24,13 +26,13 @@ body, html, #root {
   border: 1px solid #4444;
   padding: 1rem;
   border-radius: 8px;
-  background: linear-gradient(145deg,#1e1e23,#19191d);
+  background: linear-gradient(145deg, #1e1e23, #19191d);
 }
 
 .form-row {
   display: flex;
   flex-wrap: wrap;
-  gap: .75rem;
+  gap: 0.75rem;
   align-items: flex-end;
   margin-bottom: 1rem;
 }
@@ -43,8 +45,10 @@ body, html, #root {
   min-width: 120px;
 }
 
-input, select, button {
-  padding: .5rem .6rem;
+input,
+select,
+button {
+  padding: 0.5rem 0.6rem;
   border-radius: 6px;
   border: 1px solid #555;
   background: #222;
@@ -60,13 +64,13 @@ button {
 }
 
 button:disabled {
-  opacity: .6;
+  opacity: 0.6;
   cursor: default;
 }
 
 .quote-box {
   background: #26262c;
-  padding: .75rem;
+  padding: 0.75rem;
   border-radius: 6px;
   font-size: 0.85rem;
 }

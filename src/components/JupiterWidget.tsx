@@ -6,7 +6,7 @@ interface Quote {
   inAmount: string;
   outAmount: string;
   priceImpactPct?: number;
-  route?: any;
+  route?: unknown;
   error?: string;
 }
 
@@ -28,11 +28,12 @@ export const JupiterWidget: React.FC = () => {
         inputMint,
         outputMint,
         amount, // expected in SOL units style string; util could convert to lamports inside
-        slippageBps: 50
+        slippageBps: 50,
       });
       setQuote(q as Quote);
-    } catch (e:any) {
-      setError(e.message || 'Quote error');
+    } catch (e: unknown) {
+      const error = e as Error;
+      setError(error.message || 'Quote error');
     } finally {
       setLoading(false);
     }
@@ -44,10 +45,14 @@ export const JupiterWidget: React.FC = () => {
     setError(null);
     try {
       // Placeholder: you would pass user wallet + route
-      const sig = await swap({ route: quote.route, userPublicKey: '<WALLET_PUBKEY_PLACEHOLDER>' });
+      const sig = await swap({
+        route: quote.route,
+        userPublicKey: '<WALLET_PUBKEY_PLACEHOLDER>',
+      });
       setSwapTx(sig);
-    } catch (e:any) {
-      setError(e.message || 'Swap error');
+    } catch (e: unknown) {
+      const error = e as Error;
+      setError(error.message || 'Swap error');
     } finally {
       setLoading(false);
     }
@@ -63,25 +68,37 @@ export const JupiterWidget: React.FC = () => {
       <div className="form-row">
         <label>
           From
-          <select value={inputMint} onChange={e => setInputMint(e.target.value)}>
-            {Object.values(TOKENS).map(t => (
-              <option key={t.mint} value={t.mint}>{t.symbol}</option>
+          <select
+            value={inputMint}
+            onChange={(e) => setInputMint(e.target.value)}
+          >
+            {Object.values(TOKENS).map((t) => (
+              <option key={t.mint} value={t.mint}>
+                {t.symbol}
+              </option>
             ))}
           </select>
         </label>
         <label>
           To
-          <select value={outputMint} onChange={e => setOutputMint(e.target.value)}>
-            {Object.values(TOKENS).map(t => (
-              <option key={t.mint} value={t.mint}>{t.symbol}</option>
+          <select
+            value={outputMint}
+            onChange={(e) => setOutputMint(e.target.value)}
+          >
+            {Object.values(TOKENS).map((t) => (
+              <option key={t.mint} value={t.mint}>
+                {t.symbol}
+              </option>
             ))}
           </select>
         </label>
         <label>
           Amount
-          <input value={amount} onChange={e => setAmount(e.target.value)} />
+          <input value={amount} onChange={(e) => setAmount(e.target.value)} />
         </label>
-        <button disabled={loading} onClick={fetchQuote}>Get Quote</button>
+        <button disabled={loading} onClick={fetchQuote}>
+          Get Quote
+        </button>
       </div>
 
       {loading && <p>Loading...</p>}
@@ -89,18 +106,16 @@ export const JupiterWidget: React.FC = () => {
       {quote && !error && (
         <div className="quote-box">
           <p>In: {quote.inAmount}</p>
-            <p>Out: {quote.outAmount}</p>
+          <p>Out: {quote.outAmount}</p>
           {quote.priceImpactPct !== undefined && (
             <p>Price Impact: {(quote.priceImpactPct * 100).toFixed(2)}%</p>
           )}
-          <button disabled={loading} onClick={doSwap}>Swap</button>
+          <button disabled={loading} onClick={doSwap}>
+            Swap
+          </button>
         </div>
       )}
-      {swapTx && (
-        <p className="tx">
-          Swap Signature: {swapTx}
-        </p>
-      )}
+      {swapTx && <p className="tx">Swap Signature: {swapTx}</p>}
     </section>
   );
 };
