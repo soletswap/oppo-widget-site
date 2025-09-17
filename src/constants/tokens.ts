@@ -1,15 +1,5 @@
-export const SUPPORTED_TOKENS = [
-  { symbol: "SOL", mint: "So11111111111111111111111111111111111111112" },
-  { symbol: "USDG", mint: "USDGMintAddressHere" },
-  { symbol: "PUMP", mint: "PUMPMintAddressHere" },
-  { symbol: "JupSOL", mint: "JupSOLMintAddressHere" },
-  { symbol: "mSOL", mint: "mSOLMintAddressHere" },
-  { symbol: "RAY", mint: "RAYMintAddressHere" },
-  { symbol: "JUP", mint: "JUPMintAddressHere" },
-  { symbol: "EURC", mint: "EURCMintAddressHere" },
-  { symbol: "USDC", mint: "USDCMintAddressHere" },
-  { symbol: "USDT", mint: "USDTMintAddressHere" },
-  { symbol: "SSOL", mint: "SSOLMintAddressHere" },
-  { symbol: "JitoSOL", mint: "JitoSOLMintAddressHere" },
-  { symbol: "ETH", mint: "ETHMintAddressHere" }
-];
+export const TOKENS: Record<string, { symbol: string; mint: string; decimals: number; }> = {
+  SOL: { symbol: 'SOL', mint: 'So11111111111111111111111111111111111111112', decimals: 9 },
+  USDC: { symbol: 'USDC', mint: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v', decimals: 6 },
+  USDT: { symbol: 'USDT', mint: 'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11ESG4HfwCkP5w', decimals: 6 }
+};
