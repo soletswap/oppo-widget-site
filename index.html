@@ -1,54 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Oppo Jupiter Widget</title>
-    <!-- Plugin yükleme -->
-    <script src="https://plugin.jup.ag/plugin-v1.js"></script>
-    <style>
-      :root {
-        --jupiter-plugin-primary: 137, 213, 220;
-        --jupiter-plugin-background: 12, 12, 12;
-        --jupiter-plugin-primary-text: 232, 249, 255;
-        --jupiter-plugin-warning: 251, 191, 36;
-        --jupiter-plugin-interactive: 33, 42, 54;
-        --jupiter-plugin-module: 16, 23, 31;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oppo Jupiter Widget</title>
 
-      body {
-        background: #0c0c0c;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-        font-family: Arial, sans-serif;
-      }
+  <!-- Jupiter Plugin -->
+  <script src="https://plugin.jup.ag/plugin-v1.js"></script>
 
+  <style>
+    :root {
+      --jupiter-plugin-primary: 137, 213, 220;
+      --jupiter-plugin-background: 12, 12, 12;
+      --jupiter-plugin-primary-text: 232, 249, 255;
+      --jupiter-plugin-warning: 251, 191, 36;
+      --jupiter-plugin-interactive: 33, 42, 54;
+      --jupiter-plugin-module: 16, 23, 31;
+    }
+
+    body {
+      background: #0c0c0c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    #target-container {
+      width: 100%;
+      max-width: 400px;
+      height: 568px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    @media (max-width: 450px) {
       #target-container {
-        width: 400px;
-        height: 568px;
+        height: 500px;
       }
-    </style>
-  </head>
-  <body>
-    <div id="target-container"></div>
+    }
+  </style>
+</head>
+<body>
+  <div id="target-container"></div>
 
-    <script>
-      window.Jupiter.init({
-        displayMode: "integrated",
-        integratedTargetId: "target-container",
-        formProps: {
-          initialInputMint: "So11111111111111111111111111111111111111112",
-          initialOutputMint: "HEadEtLjAFBGqAweLESUR2Qcjoc3U8ekQNvSUSH17gJz",
-        },
-        branding: {
-          logoUri:
-            "https://photos.pinksale.finance/file/pinksale-logo-upload/1733923962272-6c08b5b4359a38ef4991bd3d69dc1c3d.png",
-          name: "Oppo",
-        },
-      });
-    </script>
-  </body>
+  <script>
+    window.Jupiter.init({
+      displayMode: "integrated",
+      integratedTargetId: "target-container",
+      formProps: {
+        initialInputMint: "So11111111111111111111111111111111111111112",
+        initialOutputMint: "HEadEtLjAFBGqAweLESUR2Qcjoc3U8ekQNvSUSH17gJz",
+      },
+      branding: {
+        logoUri: "https://photos.pinksale.finance/file/pinksale-logo-upload/1733923962272-6c08b5b4359a38ef4991bd3d69dc1c3d.png",
+        name: "Oppo",
+      },
+    });
+  </script>
+</body>
 </html>
