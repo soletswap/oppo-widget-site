@@ -1,1 +1,33 @@
 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oppo Jupiter Widget</title>
+  </head>
+  <body style="background: #f5f5f5; font-family: Arial, sans-serif;">
+    <h2 style="text-align: center;">Oppo Jupiter Swap</h2>
+
+    <!-- Jupiter widget'in geleceği alan -->
+    <div id="target-container" style="width: 100%; max-width: 600px; margin: auto;"></div>
+
+    <!-- Jupiter script -->
+    <script src="https://terminal.jup.ag/main-v2.js"></script>
+    <script>
+      window.Jupiter.init({
+        displayMode: "integrated",
+        integratedTargetId: "target-container",
+        formProps: {
+          initialInputMint: "So11111111111111111111111111111111111111112",
+          initialOutputMint: "HEadEtLjAFBGqAweLESUR2Qcjoc3U8ekQNvSUSH17gJz",
+          fixedMint: "",
+        },
+        branding: {
+          logoUri: "https://photos.pinksale.finance/file/pinksale-logo-upload/1733923962272-6c08b5b4359a38ef4991bd3d69dc1c3d.png",
+          name: "Oppo",
+        },
+      });
+    </script>
+  </body>
+</html>
