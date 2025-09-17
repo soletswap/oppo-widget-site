@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Oppo Claim + Referral</title>
 
   <!-- Jupiter Plugin -->
@@ -32,20 +32,6 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       margin-bottom: 20px;
     }
-
-    button {
-      padding: 12px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background-color: #89d5dc;
-      color: #0c0c0c;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #6bb1b8;
-    }
   </style>
 </head>
 <body>
@@ -54,19 +40,21 @@
   <!-- Widget alanı -->
   <div id="target-container"></div>
 
-  <!-- Örnek Claim butonu (swap sonrası hash elde edildikten sonra) -->
-  <button id="claimBtn">Claim & Add Referral Fee</button>
-
   <script type="module">
     // ==========================
-    // Referral / Fee Ayarı
+    // SDK import
     // ==========================
     import { addFeesToUltra } from "https://cdn.jsdelivr.net/npm/@jup-ag/ultra-api/dist/ultra-api.min.js";
 
+    // ==========================
+    // Referral / Fee Ayarları
+    // ==========================
     const feeBps = 5; // 0.5% işlem ücreti
-    const feeRecipient = "9EvV3V9cZ4KktQ4xCnu3ymA2a9qgaBR4HLFhFddZZXSn"; // senin referral wallet
+    const feeRecipient = "9EvV3V9cZ4KktQ4xCnu3ymA2a9qgaBR4HLFhFddZZXSn";
 
-    // 1️⃣ Widget Init
+    // ==========================
+    // Widget Init
+    // ==========================
     window.Jupiter.init({
       displayMode: "integrated",
       integratedTargetId: "target-container",
@@ -79,144 +67,4 @@
         name: "Oppo",
       },
       feeBps: feeBps,
-      feeRecipient: feeRecipient
-    });
-
-    // 2️⃣ Handle Swap / Claim Transaction
-    async function handleSwap(transactionHash) {
-      try {
-        await addFeesToUltra({
-          transaction: transactionHash,
-          feeBps: feeBps,
-          feeRecipient: feeRecipient
-        });
-        console.log("Referral fee başarıyla eklendi!");
-        alert("Referral fee başarıyla eklendi!");
-      } catch (error) {
-        console.error("Fee ekleme hatası:", error);
-        alert("Fee ekleme hatası! Check console.");
-      }
-    }
-
-    // 3️⃣ Örnek Claim butonu
-    const claimBtn = document.getElementById("claimBtn");
-    claimBtn.addEventListener("click", async () => {
-      // Burada normalde swap/claim sonrası transaction hash alınır
-      // Demo için fake hash kullanalım
-      const fakeTxHash = "5KJfExampleTransactionHash123456";
-      await handleSwap(fakeTxHash);
-    });
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Oppo Claim + Referral</title>
-
-  <!-- Jupiter Plugin -->
-  <script src="https://plugin.jup.ag/plugin-v1.js"></script>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0c0c0c;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    #target-container {
-      width: 100%;
-      max-width: 400px;
-      height: 568px;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      margin-bottom: 20px;
-    }
-
-    button {
-      padding: 12px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background-color: #89d5dc;
-      color: #0c0c0c;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #6bb1b8;
-    }
-  </style>
-</head>
-<body>
-  <h2>Oppo Claim + Referral Widget</h2>
-
-  <!-- Widget alanı -->
-  <div id="target-container"></div>
-
-  <!-- Örnek Claim butonu (swap sonrası hash elde edildikten sonra) -->
-  <button id="claimBtn">Claim & Add Referral Fee</button>
-
-  <script type="module">
-    // ==========================
-    // Referral / Fee Ayarı
-    // ==========================
-    import { addFeesToUltra } from "https://cdn.jsdelivr.net/npm/@jup-ag/ultra-api/dist/ultra-api.min.js";
-
-    const feeBps = 5; // 0.5% işlem ücreti
-    const feeRecipient = "9EvV3V9cZ4KktQ4xCnu3ymA2a9qgaBR4HLFhFddZZXSn"; // senin referral wallet
-
-    // 1️⃣ Widget Init
-    window.Jupiter.init({
-      displayMode: "integrated",
-      integratedTargetId: "target-container",
-      formProps: {
-        initialInputMint: "So11111111111111111111111111111111111111112",
-        initialOutputMint: "HEadEtLjAFBGqAweLESUR2Qcjoc3U8ekQNvSUSH17gJz",
-      },
-      branding: {
-        logoUri: "https://photos.pinksale.finance/file/pinksale-logo-upload/1733923962272-6c08b5b4359a38ef4991bd3d69dc1c3d.png",
-        name: "Oppo",
-      },
-      feeBps: feeBps,
-      feeRecipient: feeRecipient
-    });
-
-    // 2️⃣ Handle Swap / Claim Transaction
-    async function handleSwap(transactionHash) {
-      try {
-        await addFeesToUltra({
-          transaction: transactionHash,
-          feeBps: feeBps,
-          feeRecipient: feeRecipient
-        });
-        console.log("Referral fee başarıyla eklendi!");
-        alert("Referral fee başarıyla eklendi!");
-      } catch (error) {
-        console.error("Fee ekleme hatası:", error);
-        alert("Fee ekleme hatası! Check console.");
-      }
-    }
-
-    // 3️⃣ Örnek Claim butonu
-    const claimBtn = document.getElementById("claimBtn");
-    claimBtn.addEventListener("click", async () => {
-      // Burada normalde swap/claim sonrası transaction hash alınır
-      // Demo için fake hash kullanalım
-      const fakeTxHash = "5KJfExampleTransactionHash123456";
-      await handleSwap(fakeTxHash);
-    });
-  </script>
-</body>
-</html>
+      feeRecipient:
