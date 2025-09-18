@@ -29,11 +29,12 @@ export async function getQuote(params: QuoteParams) {
 }
 
 interface SwapParams {
-  route: any;
+  route: unknown;
   userPublicKey: string;
 }
 
-export async function swap(params: SwapParams) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function swap(_params: SwapParams) {
   // Placeholder: Real swap requires building & signing transaction (using wallet adapter).
   // Here we just simulate.
   await new Promise(r => setTimeout(r, 1200));
