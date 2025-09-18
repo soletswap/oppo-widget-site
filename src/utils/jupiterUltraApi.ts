@@ -52,7 +52,17 @@ export async function getQuote(params: QuoteParams): Promise<{
   url.searchParams.set("amount", amountAtomic);
   url.searchParams.set("slippageBps", String(slippageBps));
 
-  const res = await fetch(url.toString(), { method: "GET" });
+  // Add optional API key for rate limit increases
+  const headers: Record<string, string> = {};
+  const apiKey = (import.meta as any).env?.VITE_JUPITER_API_KEY;
+  if (apiKey) {
+    headers['Authorization'] = `Bearer ${apiKey}`;
+  }
+
+  const res = await fetch(url.toString(), { 
+    method: "GET",
+    headers
+  });
   if (!res.ok) {
     const text = await res.text().catch(() => "");
     throw new Error(`Quote request failed: ${res.status} ${text}`);
