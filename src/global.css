@@ -20,6 +20,41 @@ body, html, #root {
   margin-bottom: 1rem;
 }
 
+.app-header p {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.main-content {
+  margin-bottom: 2rem;
+}
+
+.widgets-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 1200px) {
+  .widgets-container {
+    flex-direction: row;
+    gap: 2rem;
+  }
+  
+  .widget-section {
+    flex: 1;
+  }
+}
+
+.widget-section h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  color: #eee;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.5rem;
+}
+
 .widget {
   border: 1px solid #4444;
   padding: 1rem;
@@ -88,4 +123,48 @@ button:disabled {
   font-size: 0.7rem;
   opacity: 0.6;
   text-align: center;
+}
+
+/* Jupiter Terminal Styles */
+.jupiter-terminal-wrapper {
+  border: 1px solid #4444;
+  padding: 1rem;
+  border-radius: 8px;
+  background: linear-gradient(145deg,#1e1e23,#19191d);
+}
+
+.jupiter-terminal-header {
+  margin-bottom: 1rem;
+}
+
+.jupiter-terminal-header h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  color: #eee;
+}
+
+.jupiter-terminal-header small {
+  color: #999;
+  font-size: 0.8rem;
+}
+
+.jupiter-terminal-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-style: italic;
+}
+
+.jupiter-terminal-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff6961;
+  font-weight: 600;
+}
+
+.jupiter-terminal-container {
+  border-radius: 6px;
+  overflow: hidden;
 }
