@@ -1,61 +1,59 @@
-# Oppo Widget Site
+# Oppo Widget – Jupiter Ultra Demo Scaffold
 
-Demo amaçlı hazırlanmış bir (React + Vite + TypeScript) arayüzü. Jupiter benzeri bir swap API entegrasyonu için temel widget bileşeni içerir.
+## Overview
+A minimal demo scaffold for the Oppo widget integrating Jupiter Ultra routing – WIP.
 
-## Özellikler
+## Tech Stack
+- Vite
+- React
+- TypeScript
+- Tailwind (if present)
+- Jupiter Ultra (planned)
+- Solana Wallet Adapter (planned)
+- Vitest (planned)
 
-- Desteklenen token listesini `src/constants/tokens.ts` üzerinden yönetme
-- Basit quote alma (placeholder endpoint)
-- Swap için örnek POST isteği (demo / placeholder)
-- Komponent: `JupiterWidget`
+## Getting Started
+1. Clone: `git clone https://github.com/soletswap/oppo-widget-site.git`
+2. Install deps: `npm install`
+3. Dev server: `npm run dev`
+4. Build (if script exists): `npm run build`
 
-## Kurulum
+## Environment Variables
+| Name            | Description                             | Example                              | Required |
+|-----------------|-----------------------------------------|--------------------------------------|----------|
+| VITE_RPC_URL    | RPC endpoint for Solana connections     | https://api.mainnet-beta.solana.com  | Depends  |
+| VITE_FEE_WALLET | Public key for fee/referral collection  | 11111111111111111111111111111111     | Depends  |
 
-```bash
-pnpm install   # veya npm install / yarn
-pnpm dev
-```
-
-Varsayılan olarak uygulama `http://localhost:5173` üzerinden çalışır.
-
-## Ortam Değişkenleri
-
-`VITE_JUPITER_BASE_URL` ayarlanarak varsayılan endpoint değiştirilebilir:
-
-```bash
-echo "VITE_JUPITER_BASE_URL=https://quote-api.jup.ag" > .env.local
-```
-
-## Dosya Yapısı (Önerilen)
-
+## Project Structure
 ```
 src/
-  App.tsx
-  main.tsx
-  components/
-    JupiterWidget.tsx
-  constants/
-    tokens.ts
-  utils/
-    jupiterUltraApi.ts
+  components/        (placeholder for future UI components)
+  tests/
+    setup/
+      testSetup.ts   (Vitest + RTL future setup)
 ```
 
-## Geliştirme Notları
+## Current Limitations
+- No wallet integration yet
+- No swap execution
+- No dynamic token list
+- No fee/referral logic
+- Limited error states
+- No tests yet
 
-- `fetchQuote` ve `fetchSwap` fonksiyonları gerçek Jupiter Ultra veya güncel API parametrelerine göre güncellenmeli.
-- Token mint adresleri şu an placeholder olanlar için doldurulmalı.
-- Cüzdan entegrasyonu (Phantom, Backpack vb.) eklenmesi gerekirse ayrı bir `wallet` store / hook yapısı kurulabilir.
+## Roadmap
+- [ ] Add wallet integration (Solana Wallet Adapter)
+- [ ] Implement Jupiter Ultra routing integration
+- [ ] Add swap execution flow
+- [ ] Add dynamic token list handling
+- [ ] Add fee/referral logic
+- [ ] Improve error state handling
+- [ ] Add unit tests
+- [ ] Add integration tests
+- [ ] Improve loading UX
 
-## Yapılacaklar (Öneri)
+## Contributing
+PRs welcome. Keep changes small and focused; prefer adding tests once the test harness is in place.
 
-- [ ] Gerçek mint adreslerini ekle
-- [ ] Gerçek Jupiter endpoint & parametre senkronizasyonu
-- [ ] Cüzdan bağlantısı (solana wallet adapter)
-- [ ] Slippage ayarı UI
-- [ ] Route detay modalı
-- [ ] Hata ve loading durumlarını tasarımsal iyileştirme
-- [ ] Testler (Vitest + React Testing Library)
-
-## Lisans
-
-İhtiyaca göre lisans ekleyin (MIT vb.).
+## License
+License to be determined. (No LICENSE file present yet.)
