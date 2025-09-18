@@ -56,6 +56,58 @@ src/
 - [ ] Hata ve loading durumlarını tasarımsal iyileştirme
 - [ ] Testler (Vitest + React Testing Library)
 
+## Deployment
+
+This application is configured for deployment on multiple platforms:
+
+### Vercel
+
+Deploy with automatic Git integration:
+1. Connect your repository to Vercel
+2. Set environment variables:
+   - `VITE_JUPITER_API_BASE`: Jupiter API endpoint
+3. Deploy automatically on push to main
+
+Manual deployment:
+```bash
+npm install -g vercel
+vercel --prod
+```
+
+### Render
+
+Deploy using the included `render.yaml`:
+1. Connect your repository to Render
+2. Set environment variables in the Render dashboard
+3. Deploy automatically on push to main
+
+### Fly.io
+
+Deploy using the included `fly.toml` and `Dockerfile`:
+```bash
+# Install flyctl
+curl -L https://fly.io/install.sh | sh
+
+# Login and deploy
+flyctl auth login
+flyctl launch
+flyctl deploy
+```
+
+### Local Docker
+
+Build and run with Docker:
+```bash
+docker build -t oppo-widget-site .
+docker run -p 3000:3000 oppo-widget-site
+```
+
+### CI/CD
+
+GitHub Actions workflows are configured for:
+- **CI**: Type checking, building, and testing on Node.js 18.x and 20.x
+- **Deployment**: Automatic deployment to configured platforms on push to main
+
 ## Lisans
 
 İhtiyaca göre lisans ekleyin (MIT vb.).

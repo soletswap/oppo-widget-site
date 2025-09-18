@@ -1,0 +1,39 @@
+app = "oppo-widget-site"
+primary_region = "sea"
+
+[build]
+  builder = "heroku/buildpacks:20"
+  buildpacks = ["heroku/nodejs"]
+
+[env]
+  NODE_ENV = "production"
+  NPM_CONFIG_PRODUCTION = "false"
+
+[experimental]
+  auto_rollback = true
+
+[[services]]
+  http_checks = []
+  internal_port = 3000
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"

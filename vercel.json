@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "name": "oppo-widget-site",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm ci",
+  "devCommand": "npm run dev",
+  "framework": "vite",
+  "env": {
+    "VITE_JUPITER_API_BASE": "@vite_jupiter_api_base"
+  },
+  "build": {
+    "env": {
+      "VITE_JUPITER_API_BASE": "@vite_jupiter_api_base"
+    }
+  },
+  "functions": {},
+  "routes": [
+    {
+      "src": "/.*",
+      "dest": "/index.html"
+    }
+  ]
+}
