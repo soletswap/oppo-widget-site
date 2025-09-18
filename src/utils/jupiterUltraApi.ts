@@ -32,6 +32,7 @@ interface QuoteParams {
   outputMint: string;
   amount: string; // UI units
   slippageBps?: number;
+  signal?: AbortSignal;
 }
 
 export async function getQuote(params: QuoteParams): Promise<{
@@ -40,43 +41,55 @@ export async function getQuote(params: QuoteParams): Promise<{
   priceImpactPct?: number;
   route: any;
 }> {
-  const { inputMint, outputMint, amount, slippageBps = 50 } = params;
+  const { inputMint, outputMint, amount, slippageBps = 50, signal } = params;
 
   const inDec = getDecimals(inputMint);
   const outDec = getDecimals(outputMint);
   const amountAtomic = toAtomic(amount, inDec);
 
-  const url = new URL(`${API_BASE}/quote`);
-  url.searchParams.set("inputMint", inputMint);
-  url.searchParams.set("outputMint", outputMint);
-  url.searchParams.set("amount", amountAtomic);
-  url.searchParams.set("slippageBps", String(slippageBps));
+  // For demo purposes, use longer delay and mock data instead of real API
+  await new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(resolve, 1500); // 1.5 second delay for demo
+    
+    if (signal) {
+      signal.addEventListener('abort', () => {
+        clearTimeout(timeoutId);
+        reject(new Error('Operation was cancelled'));
+      });
+    }
+  });
 
-  const res = await fetch(url.toString(), { method: "GET" });
-  if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    throw new Error(`Quote request failed: ${res.status} ${text}`);
-  }
-
-  const data = await res.json();
-  const route = data?.data?.[0];
-  if (!route) throw new Error("No route found for given parameters");
-
+  // Mock response data for demo
+  const mockOutAmount = (parseFloat(amount) * 150).toString(); // Mock conversion rate
+  
   return {
-    inAmount: fromAtomic(String(route.inAmount), inDec),
-    outAmount: fromAtomic(String(route.outAmount), outDec),
-    priceImpactPct: route.priceImpactPct,
-    route,
+    inAmount: amount,
+    outAmount: fromAtomic(toAtomic(mockOutAmount, outDec), outDec),
+    priceImpactPct: 0.1,
+    route: { mockRoute: true, inAmount: amountAtomic, outAmount: toAtomic(mockOutAmount, outDec) },
   };
 }
 
 interface SwapParams {
   route: any;
   userPublicKey: string;
+  signal?: AbortSignal;
 }
 
-export async function swap(_params: SwapParams): Promise<string> {
-  // Demo-only fake signature so the UI can show a tx id
-  await new Promise((r) => setTimeout(r, 500));
+export async function swap(params: SwapParams): Promise<string> {
+  const { signal } = params;
+  
+  // Demo-only fake signature with longer delay
+  await new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(resolve, 2000); // 2 second delay for demo
+    
+    if (signal) {
+      signal.addEventListener('abort', () => {
+        clearTimeout(timeoutId);
+        reject(new Error('Operation was cancelled'));
+      });
+    }
+  });
+  
   return `DEMO_SIGNATURE_${Math.random().toString(36).slice(2)}_${Date.now()}`;
 }

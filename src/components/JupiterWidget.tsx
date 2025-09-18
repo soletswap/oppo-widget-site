@@ -18,38 +18,77 @@ export const JupiterWidget: React.FC = () => {
   const [quote, setQuote] = useState<Quote | null>(null);
   const [swapTx, setSwapTx] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [abortController, setAbortController] = useState<AbortController | null>(null);
 
   const fetchQuote = async () => {
+    // Cancel any existing operation
+    if (abortController) {
+      abortController.abort();
+    }
+
+    const controller = new AbortController();
+    setAbortController(controller);
     setLoading(true);
     setError(null);
     setQuote(null);
+    
     try {
       const q = await getQuote({
         inputMint,
         outputMint,
         amount, // expected in SOL units style string; util could convert to lamports inside
-        slippageBps: 50
+        slippageBps: 50,
+        signal: controller.signal
       });
       setQuote(q as Quote);
     } catch (e:any) {
-      setError(e.message || 'Quote error');
+      if (e.name === 'AbortError' || e.message === 'Operation was cancelled') {
+        setError('Operation was cancelled');
+      } else {
+        setError(e.message || 'Quote error');
+      }
     } finally {
       setLoading(false);
+      setAbortController(null);
     }
   };
 
   const doSwap = async () => {
     if (!quote) return;
+    
+    // Cancel any existing operation
+    if (abortController) {
+      abortController.abort();
+    }
+
+    const controller = new AbortController();
+    setAbortController(controller);
     setLoading(true);
     setError(null);
+    
     try {
       // Placeholder: you would pass user wallet + route
-      const sig = await swap({ route: quote.route, userPublicKey: '<WALLET_PUBKEY_PLACEHOLDER>' });
+      const sig = await swap({ 
+        route: quote.route, 
+        userPublicKey: '<WALLET_PUBKEY_PLACEHOLDER>',
+        signal: controller.signal
+      });
       setSwapTx(sig);
     } catch (e:any) {
-      setError(e.message || 'Swap error');
+      if (e.name === 'AbortError' || e.message === 'Operation was cancelled') {
+        setError('Operation was cancelled');
+      } else {
+        setError(e.message || 'Swap error');
+      }
     } finally {
       setLoading(false);
+      setAbortController(null);
+    }
+  };
+
+  const cancelOperation = () => {
+    if (abortController) {
+      abortController.abort();
     }
   };
 
@@ -82,6 +121,9 @@ export const JupiterWidget: React.FC = () => {
           <input value={amount} onChange={e => setAmount(e.target.value)} />
         </label>
         <button disabled={loading} onClick={fetchQuote}>Get Quote</button>
+        {loading && abortController && (
+          <button onClick={cancelOperation} className="cancel-btn">Cancel</button>
+        )}
       </div>
 
       {loading && <p>Loading...</p>}
@@ -94,6 +136,9 @@ export const JupiterWidget: React.FC = () => {
             <p>Price Impact: {(quote.priceImpactPct * 100).toFixed(2)}%</p>
           )}
           <button disabled={loading} onClick={doSwap}>Swap</button>
+          {loading && abortController && (
+            <button onClick={cancelOperation} className="cancel-btn">Cancel</button>
+          )}
         </div>
       )}
       {swapTx && (
