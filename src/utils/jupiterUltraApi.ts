@@ -32,6 +32,7 @@ interface QuoteParams {
   outputMint: string;
   amount: string; // UI units
   slippageBps?: number;
+  signal?: AbortSignal;
 }
 
 export async function getQuote(params: QuoteParams): Promise<{
@@ -40,7 +41,7 @@ export async function getQuote(params: QuoteParams): Promise<{
   priceImpactPct?: number;
   route: any;
 }> {
-  const { inputMint, outputMint, amount, slippageBps = 50 } = params;
+  const { inputMint, outputMint, amount, slippageBps = 50, signal } = params;
 
   const inDec = getDecimals(inputMint);
   const outDec = getDecimals(outputMint);
@@ -52,7 +53,10 @@ export async function getQuote(params: QuoteParams): Promise<{
   url.searchParams.set("amount", amountAtomic);
   url.searchParams.set("slippageBps", String(slippageBps));
 
-  const res = await fetch(url.toString(), { method: "GET" });
+  const res = await fetch(url.toString(), { 
+    method: "GET",
+    signal 
+  });
   if (!res.ok) {
     const text = await res.text().catch(() => "");
     throw new Error(`Quote request failed: ${res.status} ${text}`);
@@ -73,10 +77,23 @@ export async function getQuote(params: QuoteParams): Promise<{
 interface SwapParams {
   route: any;
   userPublicKey: string;
+  signal?: AbortSignal;
 }
 
-export async function swap(_params: SwapParams): Promise<string> {
+export async function swap(params: SwapParams): Promise<string> {
+  const { signal } = params;
+  
   // Demo-only fake signature so the UI can show a tx id
-  await new Promise((r) => setTimeout(r, 500));
-  return `DEMO_SIGNATURE_${Math.random().toString(36).slice(2)}_${Date.now()}`;
+  return new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(() => {
+      resolve(`DEMO_SIGNATURE_${Math.random().toString(36).slice(2)}_${Date.now()}`);
+    }, 500);
+    
+    if (signal) {
+      signal.addEventListener('abort', () => {
+        clearTimeout(timeoutId);
+        reject(new Error('Operation cancelled'));
+      });
+    }
+  });
 }
