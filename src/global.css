@@ -64,6 +64,11 @@ button:disabled {
   cursor: default;
 }
 
+.cancel-btn {
+  background: #dc3545 !important;
+  border: 1px solid #c82333 !important;
+}
+
 .quote-box {
   background: #26262c;
   padding: .75rem;
