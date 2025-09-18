@@ -18,23 +18,34 @@ export const JupiterWidget: React.FC = () => {
   const [quote, setQuote] = useState<Quote | null>(null);
   const [swapTx, setSwapTx] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [abortController, setAbortController] = useState<AbortController | null>(null);
 
   const fetchQuote = async () => {
     setLoading(true);
     setError(null);
     setQuote(null);
+    
+    const controller = new AbortController();
+    setAbortController(controller);
+    
     try {
       const q = await getQuote({
         inputMint,
         outputMint,
         amount, // expected in SOL units style string; util could convert to lamports inside
-        slippageBps: 50
+        slippageBps: 50,
+        signal: controller.signal
       });
       setQuote(q as Quote);
     } catch (e:any) {
-      setError(e.message || 'Quote error');
+      if (e.name === 'AbortError' || e.message === 'Operation cancelled') {
+        setError('Operation cancelled');
+      } else {
+        setError(e.message || 'Quote error');
+      }
     } finally {
       setLoading(false);
+      setAbortController(null);
     }
   };
 
@@ -42,14 +53,42 @@ export const JupiterWidget: React.FC = () => {
     if (!quote) return;
     setLoading(true);
     setError(null);
+    
+    const controller = new AbortController();
+    setAbortController(controller);
+    
     try {
       // Placeholder: you would pass user wallet + route
-      const sig = await swap({ route: quote.route, userPublicKey: '<WALLET_PUBKEY_PLACEHOLDER>' });
+      const sig = await swap({ 
+        route: quote.route, 
+        userPublicKey: '<WALLET_PUBKEY_PLACEHOLDER>',
+        signal: controller.signal
+      });
       setSwapTx(sig);
     } catch (e:any) {
-      setError(e.message || 'Swap error');
+      if (e.name === 'AbortError' || e.message === 'Operation cancelled') {
+        setError('Operation cancelled');
+      } else {
+        setError(e.message || 'Swap error');
+      }
     } finally {
       setLoading(false);
+      setAbortController(null);
+    }
+  };
+
+  const cancelOperation = () => {
+    if (abortController) {
+      abortController.abort();
+    }
+  };
+
+  const clearState = () => {
+    setQuote(null);
+    setSwapTx(null);
+    setError(null);
+    if (abortController) {
+      abortController.abort();
     }
   };
 
@@ -82,6 +121,12 @@ export const JupiterWidget: React.FC = () => {
           <input value={amount} onChange={e => setAmount(e.target.value)} />
         </label>
         <button disabled={loading} onClick={fetchQuote}>Get Quote</button>
+        {loading && (
+          <button onClick={cancelOperation} className="cancel-btn">Cancel</button>
+        )}
+        {(quote || swapTx || error) && !loading && (
+          <button onClick={clearState} className="clear-btn">Clear</button>
+        )}
       </div>
 
       {loading && <p>Loading...</p>}
@@ -94,6 +139,9 @@ export const JupiterWidget: React.FC = () => {
             <p>Price Impact: {(quote.priceImpactPct * 100).toFixed(2)}%</p>
           )}
           <button disabled={loading} onClick={doSwap}>Swap</button>
+          {loading && (
+            <button onClick={cancelOperation} className="cancel-btn">Cancel</button>
+          )}
         </div>
       )}
       {swapTx && (
