@@ -1,61 +1,68 @@
-# Oppo Widget Site
+# Oppo Widget – Jupiter Ultra Demo Scaffold
 
-Demo amaçlı hazırlanmış bir (React + Vite + TypeScript) arayüzü. Jupiter benzeri bir swap API entegrasyonu için temel widget bileşeni içerir.
+## Overview
 
-## Özellikler
+A minimal demo scaffold for the Oppo widget integrating Jupiter Ultra routing – WIP.
 
-- Desteklenen token listesini `src/constants/tokens.ts` üzerinden yönetme
-- Basit quote alma (placeholder endpoint)
-- Swap için örnek POST isteği (demo / placeholder)
-- Komponent: `JupiterWidget`
+## Tech Stack
 
-## Kurulum
+- Vite
+- React
+- TypeScript
+- Tailwind (if present)
+- Jupiter Ultra (planned)
+- Solana Wallet Adapter (planned)
+- Vitest (planned)
 
-```bash
-pnpm install   # veya npm install / yarn
-pnpm dev
-```
+## Getting Started
 
-Varsayılan olarak uygulama `http://localhost:5173` üzerinden çalışır.
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Run development server: `npm run dev`
+4. Build for production: `npm run build` (if script exists)
 
-## Ortam Değişkenleri
+## Environment Variables
 
-`VITE_JUPITER_BASE_URL` ayarlanarak varsayılan endpoint değiştirilebilir:
+| Name | Description | Example | Required |
+|------|-------------|---------|----------|
+| VITE_RPC_URL | RPC endpoint for Solana | `https://api.mainnet-beta.solana.com` | Depends |
+| VITE_FEE_WALLET | Fee wallet address | `11111111111111111111111111111112` | Depends |
 
-```bash
-echo "VITE_JUPITER_BASE_URL=https://quote-api.jup.ag" > .env.local
-```
-
-## Dosya Yapısı (Önerilen)
+## Project Structure
 
 ```
 src/
-  App.tsx
-  main.tsx
-  components/
-    JupiterWidget.tsx
-  constants/
-    tokens.ts
-  utils/
-    jupiterUltraApi.ts
+├── components/
+│   └── (placeholder)
+└── tests/
+    └── setup/
+        └── testSetup.ts
 ```
 
-## Geliştirme Notları
+## Current Limitations
 
-- `fetchQuote` ve `fetchSwap` fonksiyonları gerçek Jupiter Ultra veya güncel API parametrelerine göre güncellenmeli.
-- Token mint adresleri şu an placeholder olanlar için doldurulmalı.
-- Cüzdan entegrasyonu (Phantom, Backpack vb.) eklenmesi gerekirse ayrı bir `wallet` store / hook yapısı kurulabilir.
+- No wallet integration yet
+- No swap execution
+- No dynamic token list
+- No fee/referral logic
+- Limited error states
+- No tests yet
 
-## Yapılacaklar (Öneri)
+## Roadmap
 
-- [ ] Gerçek mint adreslerini ekle
-- [ ] Gerçek Jupiter endpoint & parametre senkronizasyonu
-- [ ] Cüzdan bağlantısı (solana wallet adapter)
-- [ ] Slippage ayarı UI
-- [ ] Route detay modalı
-- [ ] Hata ve loading durumlarını tasarımsal iyileştirme
-- [ ] Testler (Vitest + React Testing Library)
+- [ ] Add wallet integration
+- [ ] Add swap execution
+- [ ] Add dynamic token list
+- [ ] Add fee/referral logic
+- [ ] Improve error states
+- [ ] Add unit tests
+- [ ] Add integration tests
+- [ ] Improve loading UX
 
-## Lisans
+## Contributing
 
-İhtiyaca göre lisans ekleyin (MIT vb.).
+Simple contribution guideline placeholder.
+
+## License
+
+License to be determined. (No LICENSE file present yet.)
