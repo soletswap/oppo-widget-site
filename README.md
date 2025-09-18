@@ -1,61 +1,56 @@
-# Oppo Widget Site
+# Oppo Widget – Jupiter Ultra Demo Scaffold
 
-Demo amaçlı hazırlanmış bir (React + Vite + TypeScript) arayüzü. Jupiter benzeri bir swap API entegrasyonu için temel widget bileşeni içerir.
+## Overview
 
-## Özellikler
+This repo scaffolds a Solana/Jupiter Ultra swap widget app with React+Vite+TypeScript and basic tooling for iterative expansion.
 
-- Desteklenen token listesini `src/constants/tokens.ts` üzerinden yönetme
-- Basit quote alma (placeholder endpoint)
-- Swap için örnek POST isteği (demo / placeholder)
-- Komponent: `JupiterWidget`
+## Tech Stack
 
-## Kurulum
+- React + TS + Vite
+- ESLint (flat), Prettier
+- Planned: Wallet Adapter, Jupiter Ultra, dynamic tokens
 
-```bash
-pnpm install   # veya npm install / yarn
-pnpm dev
-```
-
-Varsayılan olarak uygulama `http://localhost:5173` üzerinden çalışır.
-
-## Ortam Değişkenleri
-
-`VITE_JUPITER_BASE_URL` ayarlanarak varsayılan endpoint değiştirilebilir:
+## Getting Started
 
 ```bash
-echo "VITE_JUPITER_BASE_URL=https://quote-api.jup.ag" > .env.local
+npm install && npm run dev
 ```
 
-## Dosya Yapısı (Önerilen)
+## Environment Variables
+
+| Name | Description | Required | Default |
+|---|---|---|---|
+| VITE_RPC_URL | RPC endpoint | No | clusterApiUrl(devnet) |
+| VITE_FEE_WALLET | Referral fee address | No | Planned |
+
+## Project Structure
 
 ```
 src/
-  App.tsx
-  main.tsx
-  components/
-    JupiterWidget.tsx
-  constants/
-    tokens.ts
-  utils/
-    jupiterUltraApi.ts
+  components/JupiterWidget.tsx    # Main widget component
+  utils/jupiterUltraApi.ts        # API helpers (placeholder)
+  constants/tokens.ts             # Token definitions
+  tests/setup/testSetup.ts        # Test setup placeholder
+.github/workflows/ci.yml          # CI workflow
 ```
 
-## Geliştirme Notları
+## Current Limitations
 
-- `fetchQuote` ve `fetchSwap` fonksiyonları gerçek Jupiter Ultra veya güncel API parametrelerine göre güncellenmeli.
-- Token mint adresleri şu an placeholder olanlar için doldurulmalı.
-- Cüzdan entegrasyonu (Phantom, Backpack vb.) eklenmesi gerekirse ayrı bir `wallet` store / hook yapısı kurulabilir.
+No wallet, no real swap, static tokens, minimal error/loading, no tests, no referral logic.
 
-## Yapılacaklar (Öneri)
+## Roadmap
 
-- [ ] Gerçek mint adreslerini ekle
-- [ ] Gerçek Jupiter endpoint & parametre senkronizasyonu
-- [ ] Cüzdan bağlantısı (solana wallet adapter)
-- [ ] Slippage ayarı UI
-- [ ] Route detay modalı
-- [ ] Hata ve loading durumlarını tasarımsal iyileştirme
-- [ ] Testler (Vitest + React Testing Library)
+- [ ] Wallet adapter
+- [ ] Real swap flow
+- [ ] Dynamic tokens
+- [ ] Referral fee logic
+- [ ] Improved UX
+- [ ] CI+tests
 
-## Lisans
+## Contributing
 
-İhtiyaca göre lisans ekleyin (MIT vb.).
+Branch from main, semantic commits
+
+## License
+
+MIT
