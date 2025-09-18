@@ -1,61 +1,88 @@
-# Oppo Widget Site
+# Oppo Widget – Jupiter Ultra Demo Scaffold
 
-Demo amaçlı hazırlanmış bir (React + Vite + TypeScript) arayüzü. Jupiter benzeri bir swap API entegrasyonu için temel widget bileşeni içerir.
+## Overview
 
-## Özellikler
+A minimal React + Vite + TypeScript scaffold for demonstrating Jupiter-style swap functionality. This project provides a foundational widget component for swap API integration with placeholder endpoints and basic token management.
 
-- Desteklenen token listesini `src/constants/tokens.ts` üzerinden yönetme
-- Basit quote alma (placeholder endpoint)
-- Swap için örnek POST isteği (demo / placeholder)
-- Komponent: `JupiterWidget`
+## Tech Stack
 
-## Kurulum
+- **React 18** with TypeScript
+- **Vite** for fast development and building
+- **Zustand** for state management
+- **SWR** for data fetching
+- **Solana Web3.js** for blockchain interactions
+- **ESLint + Prettier** for code quality
 
-```bash
-pnpm install   # veya npm install / yarn
-pnpm dev
-```
-
-Varsayılan olarak uygulama `http://localhost:5173` üzerinden çalışır.
-
-## Ortam Değişkenleri
-
-`VITE_JUPITER_BASE_URL` ayarlanarak varsayılan endpoint değiştirilebilir:
+## Getting Started
 
 ```bash
-echo "VITE_JUPITER_BASE_URL=https://quote-api.jup.ag" > .env.local
+npm install
+npm run dev
 ```
 
-## Dosya Yapısı (Önerilen)
+The application will be available at `http://localhost:5173`.
+
+## Environment Variables
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `VITE_RPC_URL` | Solana RPC endpoint | `https://api.mainnet-beta.solana.com` |
+| `VITE_FEE_WALLET` | Referral fee wallet address | `YourWalletAddressHere` |
+
+Create a `.env.local` file with your values:
+
+```bash
+VITE_RPC_URL=https://api.mainnet-beta.solana.com
+VITE_FEE_WALLET=YourWalletAddressHere
+```
+
+## Project Structure
 
 ```
 src/
-  App.tsx
-  main.tsx
+  App.tsx                 # Main application component
+  main.tsx               # Application entry point
+  global.css             # Global styles
   components/
-    JupiterWidget.tsx
+    JupiterWidget.tsx    # Main swap widget component
   constants/
-    tokens.ts
+    tokens.ts           # Supported token definitions
   utils/
-    jupiterUltraApi.ts
+    jupiterUltraApi.ts  # API helper functions (placeholder)
+  tests/
+    setup/
+      testSetup.ts      # Test configuration placeholder
 ```
 
-## Geliştirme Notları
+## Current Limitations
 
-- `fetchQuote` ve `fetchSwap` fonksiyonları gerçek Jupiter Ultra veya güncel API parametrelerine göre güncellenmeli.
-- Token mint adresleri şu an placeholder olanlar için doldurulmalı.
-- Cüzdan entegrasyonu (Phantom, Backpack vb.) eklenmesi gerekirse ayrı bir `wallet` store / hook yapısı kurulabilir.
+- Uses placeholder API endpoints (not real Jupiter Ultra integration)
+- Token mint addresses are placeholders that need real values
+- No wallet connection implemented yet
+- Basic error handling and loading states
+- No slippage controls or advanced swap options
 
-## Yapılacaklar (Öneri)
+## Roadmap
 
-- [ ] Gerçek mint adreslerini ekle
-- [ ] Gerçek Jupiter endpoint & parametre senkronizasyonu
-- [ ] Cüzdan bağlantısı (solana wallet adapter)
-- [ ] Slippage ayarı UI
-- [ ] Route detay modalı
-- [ ] Hata ve loading durumlarını tasarımsal iyileştirme
-- [ ] Testler (Vitest + React Testing Library)
+- [ ] Integrate real Jupiter Ultra API endpoints
+- [ ] Add wallet connection (Phantom, Backpack, etc.)
+- [ ] Implement proper token mint addresses
+- [ ] Add slippage tolerance controls
+- [ ] Create route details modal
+- [ ] Enhance error handling and UX
+- [ ] Add comprehensive test suite (Vitest + React Testing Library)
+- [ ] Implement referral fee system
+- [ ] Add transaction history
+- [ ] Mobile responsive optimizations
 
-## Lisans
+## Contributing
 
-İhtiyaca göre lisans ekleyin (MIT vb.).
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests and linting
+5. Submit a pull request
+
+## License
+
+License to be determined (placeholder - add MIT or appropriate license).
