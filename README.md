@@ -36,7 +36,7 @@ cp .env.example .env
 
 - `VITE_RPC_ENDPOINT`: Solana RPC endpoint (varsayılan: mainnet-beta)
 - `VITE_JUPITER_API_BASE`: Jupiter quote API base URL
-- `VITE_JUPITER_API_KEY`: Jupiter API key (opsiyonel, rate limit artışı için)
+- `VITE_JUPITER_API_KEY`: Jupiter API key (opsiyonel, x-api-key header olarak gönderilir, rate limit artışı için)
 
 ### Jupiter Terminal Yapılandırması
 

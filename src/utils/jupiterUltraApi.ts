@@ -56,7 +56,7 @@ export async function getQuote(params: QuoteParams): Promise<{
   const headers: Record<string, string> = {};
   const apiKey = (import.meta as any).env?.VITE_JUPITER_API_KEY;
   if (apiKey) {
-    headers['Authorization'] = `Bearer ${apiKey}`;
+    headers['x-api-key'] = apiKey;
   }
 
   const res = await fetch(url.toString(), { 
