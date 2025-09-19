@@ -1,94 +1,36 @@
-# Oppo Widget Site
+# Oppo Swap
 
-Demo amaçlı hazırlanmış bir (React + Vite + TypeScript) arayüzü. Jupiter benzeri bir swap API entegrasyonu için temel widget bileşeni ve production-ready Jupiter Terminal embed içerir.
+A minimal static site that integrates the Jupiter Ultra Swap Plugin for Solana token swapping.
 
-## Özellikler
+## Overview
 
-- **Custom Demo Widget**: Basit quote alma ve swap demo arayüzü
-  - Desteklenen token listesini `src/constants/tokens.ts` üzerinden yönetme
-  - Placeholder API endpoints ile demo fonksiyonalite
-  - Komponent: `JupiterWidget`
+This is a simple static site consisting of only three files that loads the Jupiter Ultra Swap Plugin directly. The site is designed to work on GitHub Pages under the project path `/oppo-widget-site/`.
 
-- **Jupiter Terminal Embed**: Production-ready swap interface
-  - Dinamik olarak Jupiter Terminal script yükleme
-  - Oppo branding ile yapılandırılmış referrer hesabı
-  - Çevresel değişkenler ile yapılandırılabilir
-  - Komponent: `JupiterTerminal`
+## Files
 
-## Kurulum
+- `index.html` - Main HTML page with Jupiter plugin script and target container
+- `styles.css` - CSS variables for Jupiter plugin theming and basic layout styling
+- `main.js` - JavaScript initialization code for the Jupiter Ultra Swap Plugin
 
-```bash
-npm install   # veya pnpm install / yarn
-npm run dev
-```
+## Features
 
-Varsayılan olarak uygulama `http://localhost:5173/oppo-widget-site/` üzerinden çalışır.
+- **Jupiter Ultra Swap Plugin Integration**: Direct CDN integration with the official Jupiter plugin
+- **Oppo Branding**: Configured with Oppo logo and branding
+- **Referral Account**: Pre-configured referral account for fee collection
+- **Responsive Layout**: Centered 400x568px swap widget
+- **GitHub Pages Compatible**: Uses relative paths for project subpath deployment
 
-## Ortam Değişkenleri
+## Configuration
 
-Tüm ortam değişkenleri için `.env.example` dosyasını `.env` olarak kopyalayın:
+The Jupiter plugin is initialized with:
+- **Initial Input Token**: SOL (So11111111111111111111111111111111111111112)
+- **Initial Output Token**: HEADE token (HEadEtLjAFBGqAweLESUR2Qcjoc3U8ekQNvSUSH17gJz)
+- **Referral Account**: 9EvV3V9cZ4KktQ4xCnu3ymA2a9qgaBR4HLFhFddZZXSn
+- **Explorer**: Solscan
+- **Branding**: Oppo name and logo
 
-```bash
-cp .env.example .env
-```
+## Deployment
 
-### Ana Yapılandırma
+The site is deployed to GitHub Pages at: https://soletswap.github.io/oppo-widget-site/
 
-- `VITE_RPC_ENDPOINT`: Solana RPC endpoint (varsayılan: mainnet-beta)
-- `VITE_JUPITER_API_BASE`: Jupiter quote API base URL
-- `VITE_JUPITER_API_KEY`: Jupiter API key (opsiyonel, x-api-key header olarak gönderilir, rate limit artışı için)
-
-### Jupiter Terminal Yapılandırması
-
-- `VITE_JUPITER_REFERRER_ACCOUNT`: Referrer hesap adresi (varsayılan: Oppo hesabı)
-- `VITE_JUPITER_REFERRER_FEE_BPS`: Referrer fee basis points (varsayılan: 50 = 0.5%)
-- `VITE_JUPITER_DEFAULT_INPUT_MINT`: Varsayılan input token (varsayılan: SOL)
-- `VITE_JUPITER_DEFAULT_OUTPUT_MINT`: Varsayılan output token (varsayılan: USDC)
-
-### Branding
-
-- `VITE_PLATFORM_NAME`: Platform adı (varsayılan: "Oppo")
-- `VITE_PLATFORM_LOGO`: Platform logo URL (opsiyonel)
-
-## Dosya Yapısı
-
-```
-src/
-  App.tsx                 # Ana uygulama shell
-  main.tsx               # Uygulama giriş noktası
-  global.css             # Global stil tanımları
-  components/
-    JupiterWidget.tsx    # Custom demo widget
-    JupiterTerminal.tsx  # Jupiter Terminal embed
-  constants/
-    tokens.ts            # Desteklenen token tanımları
-  utils/
-    jupiterUltraApi.ts   # Jupiter API entegrasyonu
-```
-
-## Geliştirme Notları
-
-### Custom Widget
-- `fetchQuote` ve `fetchSwap` fonksiyonları gerçek Jupiter Ultra veya güncel API parametrelerine göre güncellenmeli.
-- Token mint adresleri şu an gerçek mainnet adresleri kullanıyor.
-- Cüzdan entegrasyonu (Phantom, Backpack vb.) eklenmesi gerekirse ayrı bir `wallet` store / hook yapısı kurulabilir.
-
-### Jupiter Terminal
-- Production ortamında external script loading çalışacaktır
-- Development ortamında CORS/security policies nedeniyle script yükleme başarısız olabilir
-- Terminal yapılandırması tamamen environment variables ile kontrol edilebilir
-
-## Yapılacaklar (Öneri)
-
-- [x] Jupiter Terminal embed entegrasyonu
-- [x] Çevresel değişken desteği ve API key entegrasyonu
-- [x] Dual widget layout
-- [ ] Cüzdan bağlantısı (solana wallet adapter)
-- [ ] Slippage ayarı UI (custom widget için)
-- [ ] Route detay modalı (custom widget için)
-- [ ] Hata ve loading durumlarını tasarımsal iyileştirme
-- [ ] Testler (Vitest + React Testing Library)
-
-## Lisans
-
-İhtiyaca göre lisans ekleyin (MIT vb.).
+No build process is required - just commit the three static files to the repository root.
